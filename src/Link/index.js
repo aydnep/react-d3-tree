@@ -89,11 +89,11 @@ export default class Link extends React.PureComponent {
     const {
       styles,
       linkData: {
-        source,
-        target,
+        source: { linkClassName: sourceLinkClassName = '' },
+        target: { linkClassName: targetLinkClassName = '' }
       },
     } = this.props;
-    const className = `linkBase ${source.linkClassName || ''} ${target.linkClassName || ''}`;
+    const className = `linkBase ${sourceLinkClassName} ${targetLinkClassName}`;
     return (
       <path
         ref={l => {
