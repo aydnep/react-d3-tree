@@ -64,9 +64,8 @@ describe('<Node />', () => {
     const nodeComponent = shallow(
       <Node {...mockProps} nodeData={{ ...nodeData, _children: [] }} />,
     );
-
-    expect(leafNodeComponent.find('g').prop('className')).toBe('leafNodeBase');
-    expect(nodeComponent.find('g').prop('className')).toBe('nodeBase');
+    expect(leafNodeComponent.find('g').prop('className')).toContain('leafNodeBase');
+    expect(nodeComponent.find('g').prop('className')).toContain('nodeBase');
   });
 
   it('applies correct <circle> styles depending on `nodeData._children`', () => {
