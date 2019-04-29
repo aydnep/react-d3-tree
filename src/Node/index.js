@@ -98,15 +98,9 @@ export default class Node extends React.Component {
   }
 
   render() {
-    const {
-      nodeData,
-      nodeSize,
-      nodeLabelComponent,
-      allowForeignObjects,
-      styles,
-      className,
-    } = this.props;
-    const nodeStyle = nodeData._children ? { ...styles.node } : { ...styles.leafNode };
+    const { nodeData, nodeSize, nodeLabelComponent, allowForeignObjects, styles } = this.props;
+    const nodeStyle =
+      nodeData._children || nodeData.hasChildren ? { ...styles.node } : { ...styles.leafNode };
     return (
       <g
         id={nodeData.id}
@@ -114,7 +108,7 @@ export default class Node extends React.Component {
           this.node = n;
         }}
         style={this.state.initialStyle}
-        className={`${className} ${nodeData._children ? 'nodeBase' : 'leafNodeBase'}`}
+        className={nodeData._children || nodeData.hasChildren ? 'nodeBase' : 'leafNodeBase'}
         transform={this.state.transform}
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
@@ -136,7 +130,6 @@ Node.defaultProps = {
   nodeLabelComponent: null,
   attributes: undefined,
   circleRadius: undefined,
-  className: '',
   styles: {
     node: {
       circle: {},
@@ -168,5 +161,4 @@ Node.propTypes = {
   allowForeignObjects: T.bool.isRequired,
   circleRadius: T.number,
   styles: T.object,
-  className: T.string,
 };
