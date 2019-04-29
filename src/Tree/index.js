@@ -55,8 +55,7 @@ export default class Tree extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // Clone new data & assign internal properties
-    // if (this.props.data !== nextProps.data) {
-    if (!deepEqual(this.props.data, nextProps.data, { strict: true })) {
+    if (this.props.data !== nextProps.data) {
       this.setState({
         data: this.assignInternalProperties(clone(nextProps.data)),
       });
