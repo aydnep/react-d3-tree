@@ -437,8 +437,10 @@ export default class Tree extends React.Component {
       this.lastTransitionDuration !== transitionDuration
     ) {
       shouldAnimate = false;
+      this.lastTransitionDuration = transitionDuration;
+    } else if (!Number.isSafeInteger(this.lastTransitionDuration)) {
+      this.lastTransitionDuration = transitionDuration;
     }
-    this.lastTransitionDuration = transitionDuration;
 
     return (
       <div className={`rd3t-tree-container ${zoomable ? 'rd3t-grabbable' : undefined}`}>
