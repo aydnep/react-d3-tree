@@ -441,7 +441,8 @@ export default class Tree extends React.Component {
       <div className={`rd3t-tree-container ${zoomable ? 'rd3t-grabbable' : undefined}`}>
         <svg className={rd3tSvgClassName} width="100%" height="100%">
           <NodeWrapper
-            transitionDuration={shouldAnimate ? transitionDuration : 0}
+            // transitionDuration={shouldAnimate ? transitionDuration : 0}
+            transitionDuration={transitionDuration}
             component="g"
             className={rd3tGClassName}
             transform={`translate(${translate.x},${translate.y}) scale(${scale})`}
