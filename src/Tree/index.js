@@ -36,12 +36,11 @@ export default class Tree extends React.Component {
     this.internalState.initialRender = false;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // Rebind zoom listeners to new DOM nodes in case NodeWrapper switched <TransitionGroup> <-> <g>
-
-    // if (prevProps.transitionDuration !== this.props.transitionDuration) {
-    //   this.bindZoomListener(this.props);
-    // }
+    if (prevProps.transitionDuration !== this.props.transitionDuration) {
+      this.bindZoomListener(this.props);
+    }
 
     if (typeof this.props.onUpdate === 'function') {
       this.props.onUpdate({
@@ -56,17 +55,12 @@ export default class Tree extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     // Clone new data & assign internal properties
-    if (!deepEqual(this.props.data, nextProps.data)) {
-      this.setState(
-        {
-          data: this.assignInternalProperties(clone(nextProps.data)),
-        },
-        () => {
-          const { links, nodes } = this.generateTree();
-          this.setState({ links, nodes });
-        },
-      );
+    if (this.props.data !== nextProps.data) {
+      this.setState({
+        data: this.assignInternalProperties(clone(nextProps.data)),
+      });
     }
+
     this.internalState.d3 = this.calculateD3Geometry(nextProps);
 
     // If zoom-specific props change -> rebind listener with new values
@@ -77,13 +71,6 @@ export default class Tree extends React.Component {
     ) {
       this.bindZoomListener(nextProps);
     }
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return !(
-      deepEqual(this.props.data, nextProps.data) &&
-      this.props.transitionDuration !== nextProps.transitionDuration
-    );
   }
 
   /**
@@ -423,8 +410,7 @@ export default class Tree extends React.Component {
   }
 
   render() {
-    // const { nodes, links } = this.generateTree();
-    const { nodes = [], links = [] } = this.state;
+    const { nodes, links } = this.generateTree();
     const { rd3tSvgClassName, rd3tGClassName } = this.state;
     const {
       nodeSvgShape,
