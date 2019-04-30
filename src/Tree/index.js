@@ -432,9 +432,14 @@ export default class Tree extends React.Component {
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
     let shouldAnimate = true;
 
-    if (this.lastTransitionDuration !== transitionDuration) {
+    if (
+      Number.isSafeInteger(this.lastTransitionDuration) &&
+      this.lastTransitionDuration !== transitionDuration
+    ) {
       this.lastTransitionDuration = transitionDuration;
       shouldAnimate = false;
+    } else if (!Number.isSafeInteger(this.lastTransitionDuration)) {
+      this.lastTransitionDuration = transitionDuration;
     }
 
     return (
