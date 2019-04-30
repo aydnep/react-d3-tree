@@ -424,7 +424,7 @@ export default class Tree extends React.Component {
 
   render() {
     // const { nodes, links } = this.generateTree();
-    const { nodes, links } = this.state;
+    const { nodes = [], links = [] } = this.state;
     const { rd3tSvgClassName, rd3tGClassName } = this.state;
     const {
       nodeSvgShape,
