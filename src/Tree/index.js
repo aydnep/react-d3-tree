@@ -432,16 +432,19 @@ export default class Tree extends React.Component {
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
     let shouldAnimate = true;
 
-    if (this.lastTransitionDuration !== transitionDuration) {
-      this.lastTransitionDuration = transitionDuration;
+    if (
+      Number.isSafeInteger(this.lastTransitionDuration) &&
+      this.lastTransitionDuration !== transitionDuration
+    ) {
       shouldAnimate = false;
     }
+    this.lastTransitionDuration = transitionDuration;
 
     return (
       <div className={`rd3t-tree-container ${zoomable ? 'rd3t-grabbable' : undefined}`}>
         <svg className={rd3tSvgClassName} width="100%" height="100%">
           <NodeWrapper
-            transitionDuration={transitionDuration}
+            transitionDuration={shouldAnimate ? transitionDuration : 0}
             component="g"
             className={rd3tGClassName}
             transform={`translate(${translate.x},${translate.y}) scale(${scale})`}
