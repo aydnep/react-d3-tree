@@ -36,11 +36,12 @@ export default class Tree extends React.Component {
     this.internalState.initialRender = false;
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     // Rebind zoom listeners to new DOM nodes in case NodeWrapper switched <TransitionGroup> <-> <g>
-    if (prevProps.transitionDuration !== this.props.transitionDuration) {
-      this.bindZoomListener(this.props);
-    }
+
+    // if (prevProps.transitionDuration !== this.props.transitionDuration) {
+    //   this.bindZoomListener(this.props);
+    // }
 
     if (typeof this.props.onUpdate === 'function') {
       this.props.onUpdate({
@@ -60,7 +61,6 @@ export default class Tree extends React.Component {
         data: this.assignInternalProperties(clone(nextProps.data)),
       });
     }
-
     this.internalState.d3 = this.calculateD3Geometry(nextProps);
 
     // If zoom-specific props change -> rebind listener with new values
