@@ -464,7 +464,7 @@ export default class Tree extends React.Component {
                 nodeLabelComponent={nodeLabelComponent}
                 nodeSize={nodeSize}
                 orientation={orientation}
-                transitionDuration={transitionDuration}
+                transitionDuration={shouldAnimate ? transitionDuration : 0}
                 nodeData={nodeData}
                 name={nodeData.name}
                 attributes={nodeData.attributes}
