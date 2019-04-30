@@ -57,9 +57,15 @@ export default class Tree extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Clone new data & assign internal properties
     if (!deepEqual(this.props.data, nextProps.data)) {
-      this.setState({
-        data: this.assignInternalProperties(clone(nextProps.data)),
-      });
+      this.setState(
+        {
+          data: this.assignInternalProperties(clone(nextProps.data)),
+        },
+        () => {
+          const { links, nodes } = this.generateTree();
+          this.setState({ links, nodes });
+        },
+      );
     }
     this.internalState.d3 = this.calculateD3Geometry(nextProps);
 
@@ -417,7 +423,8 @@ export default class Tree extends React.Component {
   }
 
   render() {
-    const { nodes, links } = this.generateTree();
+    // const { nodes, links } = this.generateTree();
+    const { nodes, links } = this.state;
     const { rd3tSvgClassName, rd3tGClassName } = this.state;
     const {
       nodeSvgShape,
