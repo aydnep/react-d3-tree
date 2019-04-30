@@ -73,6 +73,13 @@ export default class Tree extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !(
+      deepEqual(this.props.data, nextProps.data) &&
+      this.props.transitionDuration !== nextProps.transitionDuration
+    );
+  }
+
   /**
    * setInitialTreeDepth - Description
    *
