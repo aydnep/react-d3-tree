@@ -430,6 +430,12 @@ export default class Tree extends React.Component {
     } = this.props;
     const { translate, scale } = this.internalState.d3;
     const subscriptions = { ...nodeSize, ...separation, depthFactor, initialDepth };
+    let shouldAnimate = true;
+
+    if (this.lastTransitionDuration !== transitionDuration) {
+      this.lastTransitionDuration = transitionDuration;
+      shouldAnimate = false;
+    }
 
     return (
       <div className={`rd3t-tree-container ${zoomable ? 'rd3t-grabbable' : undefined}`}>
@@ -446,7 +452,7 @@ export default class Tree extends React.Component {
                 orientation={orientation}
                 pathFunc={pathFunc}
                 linkData={linkData}
-                transitionDuration={transitionDuration}
+                transitionDuration={shouldAnimate ? transitionDuration : 0}
                 styles={styles.links}
               />
             ))}
