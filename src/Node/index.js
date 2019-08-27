@@ -69,11 +69,7 @@ export default class Node extends React.Component {
     /* TODO: DEPRECATE <circle /> */
     if (circleRadius) {
       return (
-        <circle
-          r={circleRadius}
-          style={nodeStyle.circle}
-          data-plasma-address={nodeData.plasmaAddress}
-        />
+        <circle r={circleRadius} style={nodeStyle.circle} data-plasma={nodeData.plasmaAddress} />
       );
     }
 
