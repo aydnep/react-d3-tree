@@ -64,11 +64,17 @@ export default class Node extends React.Component {
     }
   }
 
-  renderNodeElement = nodeStyle => {
+  renderNodeElement = (nodeStyle, nodeData) => {
     const { circleRadius, nodeSvgShape } = this.props;
     /* TODO: DEPRECATE <circle /> */
     if (circleRadius) {
-      return <circle r={circleRadius} style={nodeStyle.circle} />;
+      return (
+        <circle
+          r={circleRadius}
+          style={nodeStyle.circle}
+          data-plasma-address={nodeData.plasmaAddress}
+        />
+      );
     }
 
     return nodeSvgShape.shape === 'none'
@@ -116,7 +122,7 @@ export default class Node extends React.Component {
         onMouseOver={this.handleOnMouseOver}
         onMouseOut={this.handleOnMouseOut}
       >
-        {this.renderNodeElement(nodeStyle)}
+        {this.renderNodeElement(nodeStyle, nodeData)}
 
         {allowForeignObjects && nodeLabelComponent ? (
           <ForeignObjectElement nodeData={nodeData} nodeSize={nodeSize} {...nodeLabelComponent} />
