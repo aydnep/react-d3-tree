@@ -16,6 +16,7 @@ export default class Node extends React.Component {
 
   componentDidMount() {
     const { nodeData, orientation, transitionDuration } = this.props;
+    // console.log('NODE CDM', nodeData);
     const transform = this.setTransform(nodeData, orientation);
 
     this.applyTransform(transform, transitionDuration);
@@ -69,7 +70,11 @@ export default class Node extends React.Component {
     /* TODO: DEPRECATE <circle /> */
     if (circleRadius) {
       return (
-        <circle r={circleRadius} style={nodeStyle.circle} data-plasma={nodeData.plasmaAddress} />
+        <circle
+          r={circleRadius}
+          style={nodeStyle.circle}
+          data-plasma={nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address)}
+        />
       );
     }
 
@@ -78,6 +83,7 @@ export default class Node extends React.Component {
       : React.createElement(nodeSvgShape.shape, {
           ...nodeStyle.circle,
           ...nodeSvgShape.shapeProps,
+          'data-plasma': nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address),
         });
   };
 
@@ -117,6 +123,7 @@ export default class Node extends React.Component {
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
         onMouseOut={this.handleOnMouseOut}
+        // data-address={nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address)}
       >
         {this.renderNodeElement(nodeStyle, nodeData)}
 
