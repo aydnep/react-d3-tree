@@ -73,7 +73,7 @@ export default class Node extends React.Component {
         <circle
           r={circleRadius}
           style={nodeStyle.circle}
-          data-plasma={nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address)}
+          data-plasma={nodeData.plasmaAddress || (nodeData.hover && nodeData.hover.address)}
         />
       );
     }
@@ -83,7 +83,7 @@ export default class Node extends React.Component {
       : React.createElement(nodeSvgShape.shape, {
           ...nodeStyle.circle,
           ...nodeSvgShape.shapeProps,
-          'data-plasma': nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address),
+          'data-plasma': nodeData.plasmaAddress || (nodeData.hover && nodeData.hover.address),
         });
   };
 
@@ -123,7 +123,7 @@ export default class Node extends React.Component {
         onClick={this.handleClick}
         onMouseOver={this.handleOnMouseOver}
         onMouseOut={this.handleOnMouseOut}
-        // data-address={nodeData.plsamaAddress || (nodeData.hover && nodeData.hover.address)}
+        // data-address={nodeData.plasmaAddress || (nodeData.hover && nodeData.hover.address)}
       >
         {this.renderNodeElement(nodeStyle, nodeData)}
 
